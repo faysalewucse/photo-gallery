@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar";
 import Images from "./Images";
 
 const Gallery = () => {
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedImages, setSelectedImages] = useState(0);
 
   return (
     <div className="bg-white rounded-lg">
