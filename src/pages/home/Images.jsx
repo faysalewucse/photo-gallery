@@ -1,10 +1,13 @@
 import { Checkbox } from "antd";
-import { useState } from "react";
 import { BiImage } from "react-icons/bi";
 
-function Images({ setSelectedImages }) {
-  const [fileList, setFileList] = useState([]);
-
+function Images({
+  setSelectedImages,
+  fileList,
+  setFileList,
+  checkedImages,
+  setCheckedImages,
+}) {
   const handleFileSelect = (event) => {
     const files = event.target.files;
     const updatedFileList = [...fileList];
@@ -17,8 +20,6 @@ function Images({ setSelectedImages }) {
 
     setFileList(updatedFileList);
   };
-
-  const [checkedImages, setCheckedImages] = useState([]);
 
   const checkedImageHandler = (index) => {
     if (checkedImages.includes(index)) {
@@ -37,7 +38,6 @@ function Images({ setSelectedImages }) {
       <div className="grid lg:grid-cols-6 md:grid-cols-5 grid-cols-2 gap-4">
         {[...fileList, {}].map((item, index) => {
           const checked = checkedImages.includes(index);
-
           return (
             <div
               key={index}
@@ -56,7 +56,7 @@ function Images({ setSelectedImages }) {
                   <div
                     onClick={() => checkedImageHandler(index)}
                     className={`rounded-md absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 ${
-                      checked && "bg-opacity-50"
+                      checked && "bg-opacity-10"
                     } transition-opacity duration-300`}
                   >
                     <Checkbox

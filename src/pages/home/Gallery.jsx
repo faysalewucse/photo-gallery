@@ -5,12 +5,31 @@ import Images from "./Images";
 
 const Gallery = () => {
   const [selectedImages, setSelectedImages] = useState(0);
+  const [fileList, setFileList] = useState([]);
+  const [checkedImages, setCheckedImages] = useState([]);
+
+  const deleteFiles = () => {
+    const updatedFileList = [...fileList];
+    for (const index of checkedImages) {
+      updatedFileList.splice(index, 1);
+    }
+
+    setSelectedImages(0);
+    setCheckedImages([]);
+    setFileList(updatedFileList);
+  };
 
   return (
     <div className="bg-white rounded-lg">
-      <Navbar selectedImages={selectedImages} />
+      <Navbar selectedImages={selectedImages} deletFiles={deleteFiles} />
       <Divider />
-      <Images setSelectedImages={setSelectedImages} />
+      <Images
+        setSelectedImages={setSelectedImages}
+        fileList={fileList}
+        setFileList={setFileList}
+        checkedImages={checkedImages}
+        setCheckedImages={setCheckedImages}
+      />
     </div>
   );
 };
