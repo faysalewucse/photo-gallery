@@ -1,5 +1,14 @@
+import Container from "./components/Container";
+import Gallery from "./pages/home/Gallery";
+
 const App = () => {
-  return <div></div>;
+  return (
+    <div className="bg-blue-50 min-h-screen md:p-10 p-5">
+      <Container>
+        <Gallery />
+      </Container>
+    </div>
+  );
 };
 
 export default App;
