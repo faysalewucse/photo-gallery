@@ -37,7 +37,7 @@ function Images({
     <div className="p-5">
       <div className="grid lg:grid-cols-6 md:grid-cols-5 grid-cols-2 gap-4">
         {[...fileList, {}].map((item, index) => {
-          const checked = checkedImages.includes(index);
+          const checked = checkedImages?.includes(index);
           return (
             <div
               key={index}
@@ -47,7 +47,7 @@ function Images({
               } rounded-md relative group border`}
             >
               {index < fileList.length ? (
-                <>
+                <div className={`${checked && "opacity-60"}`}>
                   <img
                     className="rounded-md"
                     src={item.url}
@@ -55,18 +55,16 @@ function Images({
                   />
                   <div
                     onClick={() => checkedImageHandler(index)}
-                    className={`rounded-md absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 ${
-                      checked && "bg-opacity-10"
-                    } transition-opacity duration-300`}
+                    className={`rounded-md absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50  transition-opacity duration-300`}
                   >
                     <Checkbox
                       checked={checked}
                       className={`${
-                        checked ? "block" : "hidden"
-                      } group-hover:block m-2`}
+                        checked ? "inline-block" : "hidden"
+                      } group-hover:inline-block m-2`}
                     />
                   </div>
-                </>
+                </div>
               ) : (
                 <div className="relative flex justify-center items-center">
                   <div className="absolute z-0 top-10 px-5 w-full h-full">

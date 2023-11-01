@@ -2,6 +2,7 @@ import { useState } from "react";
 import Divider from "../../components/Divider";
 import Navbar from "../../components/Navbar";
 import Images from "./Images";
+import toast from "react-hot-toast";
 
 const Gallery = () => {
   const [selectedImages, setSelectedImages] = useState(0);
@@ -17,6 +18,7 @@ const Gallery = () => {
     setSelectedImages(0);
     setCheckedImages([]);
     setFileList(updatedFileList);
+    toast.success("Files deleted successfully");
   };
 
   return (

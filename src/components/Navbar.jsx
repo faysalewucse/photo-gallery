@@ -8,7 +8,7 @@ const Navbar = ({ selectedImages, deletFiles }) => {
       ) : (
         <h6 className="text-sm flex items-center gap-1">
           <MdCheckBox className="text-blue-500 text-lg" />
-          {selectedImages} images selected
+          {selectedImages} {selectedImages > 1 ? "files" : "file"} selected
         </h6>
       )}
       {selectedImages !== 0 && (
