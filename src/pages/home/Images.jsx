@@ -1,5 +1,6 @@
-import { Checkbox } from "antd";
-import { BiImage } from "react-icons/bi";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import Image from "../../components/Image";
 
 function Images({
   setSelectedImages,
@@ -33,58 +34,32 @@ function Images({
     }
   };
 
+  const onMove = (from, to) => {
+    const movedImage = fileList[from];
+    const updatedFileList = [...fileList];
+    updatedFileList.splice(from, 1);
+    updatedFileList.splice(to, 0, movedImage);
+    setFileList(updatedFileList);
+  };
+
   return (
     <div className="p-5">
-      <div className="grid lg:grid-cols-6 md:grid-cols-5 grid-cols-2 gap-4">
-        {[...fileList, {}].map((item, index) => {
-          const checked = checkedImages?.includes(index);
-          return (
-            <div
+      <DndProvider backend={HTML5Backend}>
+        <div className="grid lg:grid-cols-6 md:grid-cols-5 grid-cols-2 gap-4">
+          {[...fileList, {}].map((item, index) => (
+            <Image
               key={index}
-              className={`${index === 0 && "col-span-2 row-span-2"} ${
-                index === fileList.length &&
-                "border-dashed bg-dark/5 hover:bg-dark/10"
-              } rounded-md relative group border`}
-            >
-              {index < fileList.length ? (
-                <div className={`${checked && "opacity-60"}`}>
-                  <img
-                    className="rounded-md"
-                    src={item.url}
-                    alt={`Image ${index}`}
-                  />
-                  <div
-                    onClick={() => checkedImageHandler(index)}
-                    className={`rounded-md absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50  transition-opacity duration-300`}
-                  >
-                    <Checkbox
-                      checked={checked}
-                      className={`${
-                        checked ? "inline-block" : "hidden"
-                      } group-hover:inline-block m-2`}
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div className="relative flex justify-center items-center">
-                  <div className="absolute z-0 top-10 px-5 w-full h-full">
-                    <BiImage className="mx-auto text-xl mb-3" />
-                    <p className="text-center">Add Photo</p>
-                  </div>
-                  <input
-                    type="file"
-                    id="fileInput"
-                    accept="image/*"
-                    multiple
-                    className="cursor-pointer z-10 opacity-0 w-28 h-28 m-2"
-                    onChange={handleFileSelect}
-                  />
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+              url={item.url}
+              index={index}
+              checked={checkedImages.includes(index)}
+              onCheck={() => checkedImageHandler(index)}
+              onMove={onMove}
+              fileList={fileList}
+              handleFileSelect={handleFileSelect}
+            />
+          ))}
+        </div>
+      </DndProvider>
     </div>
   );
 }

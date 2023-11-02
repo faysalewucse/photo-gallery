@@ -32,6 +32,7 @@ const Gallery = () => {
         checkedImages={checkedImages}
         setCheckedImages={setCheckedImages}
       />
+      {/* <Test /> */}
     </div>
   );
 };
