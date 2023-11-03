@@ -2,6 +2,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Image from "../../components/Image";
 import { BiImage } from "react-icons/bi";
+import { useState } from "react";
 
 function Images({
   setSelectedImages,
@@ -43,6 +44,8 @@ function Images({
     setFileList(updatedFileList);
   };
 
+  const [hoveringOn, setHoveringOn] = useState();
+
   return (
     <div className="p-5">
       <DndProvider backend={HTML5Backend}>
@@ -56,6 +59,8 @@ function Images({
               onCheck={() => checkedImageHandler(index)}
               onMove={onMove}
               fileList={fileList}
+              hoveringOn={hoveringOn}
+              setHoveringOn={setHoveringOn}
               handleFileSelect={handleFileSelect}
             />
           ))}

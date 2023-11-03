@@ -1,7 +1,16 @@
 import { Checkbox } from "antd";
+import { motion } from "framer-motion";
 import { useDrag, useDrop } from "react-dnd";
 
-const Image = ({ url, index, checked, onCheck, onMove }) => {
+const Image = ({
+  url,
+  index,
+  checked,
+  onCheck,
+  onMove,
+  setHoveringOn,
+  hoveringOn,
+}) => {
   const [, ref] = useDrag({
     type: "Image",
     item: { index },
@@ -12,8 +21,11 @@ const Image = ({ url, index, checked, onCheck, onMove }) => {
 
   const [, drop] = useDrop({
     accept: "Image",
-    hover: (draggedItem) => {
-      console.log(index);
+    hover: () => {
+      setHoveringOn(index);
+    },
+    drop: (draggedItem) => {
+      setHoveringOn();
       if (draggedItem.index !== index) {
         onMove(draggedItem.index, index);
         draggedItem.index = index;
@@ -22,16 +34,20 @@ const Image = ({ url, index, checked, onCheck, onMove }) => {
   });
 
   return (
-    <div
+    <motion.div
+      initial={{ x: -10 }}
+      animate={{ x: 0 }}
       ref={(node) => ref(drop(node))}
-      className={`${
+      className={`transition-all duration-500 ${
+        hoveringOn === index ? "opacity-0" : "opacity-100"
+      } ${
         index === 0 && "col-span-2 row-span-2"
       } border rounded-md relative group h-full w-full`}
     >
       <div className={`${checked ? "opacity-60" : ""} h-full w-full`}>
         <img
           src={url}
-          className="rounded-md object-cover h-full w-full"
+          className={`rounded-md object-cover h-full w-full`}
           alt={`Image ${index}`}
         />
 
@@ -47,7 +63,7 @@ const Image = ({ url, index, checked, onCheck, onMove }) => {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
