@@ -1,5 +1,4 @@
 import { Checkbox } from "antd";
-import { motion } from "framer-motion";
 import { useDrag, useDrop } from "react-dnd";
 
 const Image = ({
@@ -34,9 +33,7 @@ const Image = ({
   });
 
   return (
-    <motion.div
-      initial={{ x: -10 }}
-      animate={{ x: 0 }}
+    <div
       ref={(node) => ref(drop(node))}
       className={`transition-all duration-500 ${
         hoveringOn === index ? "opacity-0" : "opacity-100"
@@ -63,7 +60,7 @@ const Image = ({
           />
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
